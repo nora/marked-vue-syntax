@@ -2,8 +2,10 @@ import hljs from 'highlightjs';
 import hljsDefineVue from 'highlightjs-vue';
 import marked from 'marked';
 
-const mark2html = () => {
-  hljsDefineVue(hljs);
+const defineVue = () => new Promise(resolve => resolve(hljsDefineVue(hljs)));
+
+const initMerked = async () => {
+  await defineVue(hljs);
   return marked.setOptions({
     langPrefix: '',
     highlight(code, lang) {
@@ -12,4 +14,4 @@ const mark2html = () => {
   });
 };
 
-export default mark2html();
+export default initMerked;
