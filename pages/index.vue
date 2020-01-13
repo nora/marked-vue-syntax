@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import marked from '@/plugins/marked';
+import initMerked from '@/plugins/marked';
 
 export default {
   data() {
@@ -18,13 +18,13 @@ export default {
         'console.log(123)',
         '<\/script>', // eslint-disable-line no-useless-escape
         '```'
-      ].join('\n')
+      ].join('\n'),
+      markedHtml: ''
     };
   },
-  computed: {
-    markedHtml() {
-      return marked(this.text);
-    }
+  async created() {
+    const marked = await initMerked();
+    this.markedHtml = marked(this.text);
   }
 };
 </script>
